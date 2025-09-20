@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
+import SleepDetailPage from './SleepDetailPage';
+import StepsDetailPage from './StepsDetailPage';
+import HeartRateDetailPage from './HeartRateDetailPage';
+import BloodPressureDetailPage from './BloodPressureDetailPage';
+import TemperatureDetailPage from './TemperatureDetailPage';
+import PulseDetailPage from './PulseDetailPage';
 
 const HealthParameters = ({ isOpen, onClose }) => {
   const [selectedMetric, setSelectedMetric] = useState('heartrate');
+  const [activeDetailPage, setActiveDetailPage] = useState(null);
+  const [isSliding, setIsSliding] = useState(false);
 
   if (!isOpen) return null;
 
@@ -83,20 +91,64 @@ const HealthParameters = ({ isOpen, onClose }) => {
     });
   };
 
+  const handleMetricClick = (metricId) => {
+    console.log('Clicked metric:', metricId); // Debug log
+    setSelectedMetric(metricId);
+    setIsSliding(true);
+    setTimeout(() => {
+      setActiveDetailPage(metricId);
+      setIsSliding(false);
+    }, 300);
+  };
+
+  const handleBackFromDetail = () => {
+    setIsSliding(true);
+    setTimeout(() => {
+      setActiveDetailPage(null);
+      setIsSliding(false);
+    }, 300);
+  };
+
+  const renderDetailPage = () => {
+    switch (activeDetailPage) {
+      case 'sleep':
+        return <SleepDetailPage onBack={handleBackFromDetail} />;
+      case 'steps':
+        return <StepsDetailPage onBack={handleBackFromDetail} />;
+      case 'heartrate':
+        return <HeartRateDetailPage onBack={handleBackFromDetail} />;
+      case 'pressure':
+        return <BloodPressureDetailPage onBack={handleBackFromDetail} />;
+      case 'temperature':
+        return <TemperatureDetailPage onBack={handleBackFromDetail} />;
+      case 'pulse':
+        return <PulseDetailPage onBack={handleBackFromDetail} />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="health-parameters absolute inset-0 bg-gradient-to-br from-purple-900 via-black to-gray-800 backdrop-blur-lg rounded-3xl border border-blue-400/50 z-20">
-      {/* Header */}
-      <div className="p-4 border-b border-gray-700/50 flex justify-between items-center bg-gradient-to-r from-gray-800/50 to-gray-900/50">
-        <button 
-          onClick={onClose}
-          className="text-blue-400 hover:text-white transition-colors duration-200 p-2 rounded-full hover:bg-gray-700/50"
-        >
-          <i className="fas fa-arrow-left text-lg"></i>
-        </button>
-        <div className="text-white text-lg font-bold">
-          {getCurrentTime()}
+      {/* Render detail page if active */}
+      {activeDetailPage && renderDetailPage()}
+      
+      {/* Main health parameters view */}
+      <div className={`transition-transform duration-300 ${
+        activeDetailPage ? 'transform translate-x-full' : 'transform translate-x-0'
+      } ${isSliding ? 'opacity-50' : 'opacity-100'}`}>
+        {/* Header */}
+        <div className="p-4 border-b border-gray-700/50 flex justify-between items-center bg-gradient-to-r from-gray-800/50 to-gray-900/50">
+          <button 
+            onClick={onClose}
+            className="text-blue-400 hover:text-white transition-colors duration-200 p-2 rounded-full hover:bg-gray-700/50"
+          >
+            <i className="fas fa-arrow-left text-lg"></i>
+          </button>
+          <div className="text-white text-lg font-bold">
+            {getCurrentTime()}
+          </div>
         </div>
-      </div>
 
       {/* Title */}
       <div className="text-center py-6">
@@ -113,7 +165,7 @@ const HealthParameters = ({ isOpen, onClose }) => {
           {healthMetrics.map((metric, index) => (
             <div
               key={metric.id}
-              onClick={() => setSelectedMetric(metric.id)}
+              onClick={() => handleMetricClick(metric.id)}
               className={`relative flex-shrink-0 w-20 h-32 rounded-2xl border-2 transition-all duration-300 cursor-pointer flex flex-col items-center justify-center ${
                 selectedMetric === metric.id
                   ? `${metric.bgColor} ${metric.borderColor} ring-2 ring-blue-400/50`
@@ -180,6 +232,7 @@ const HealthParameters = ({ isOpen, onClose }) => {
         <div className="w-2 h-2 bg-gray-600 rounded-full"></div>
         <div className="w-3 h-3 bg-blue-400 rounded-full"></div>
         <div className="w-2 h-2 bg-gray-600 rounded-full"></div>
+      </div>
       </div>
     </div>
   );
