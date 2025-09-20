@@ -227,7 +227,6 @@ const HealthParameters = ({ isOpen, onClose }) => {
         </div>
       </div>
 
-      {/* Pagination Dots */}
       <div className="flex justify-center space-x-2 pb-4">
         <div className="w-2 h-2 bg-gray-600 rounded-full"></div>
         <div className="w-3 h-3 bg-blue-400 rounded-full"></div>
