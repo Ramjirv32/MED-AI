@@ -9,15 +9,15 @@ app.commandLine.appendSwitch('ignore-gpu-blacklist');
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 280,      // match TFT width
-    height: 320,     // match TFT height
-    resizable: false, // optional, prevent resizing
+    width: 320,      // Exact watch width
+    height: 480,     // Exact watch height
+    resizable: false, // Prevent resizing to maintain watch proportions
     fullscreen: false,
     autoHideMenuBar: true, // Hide the menu bar
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-      devTools: false // Disable DevTools
+      devTools: true // Enable DevTools for development
     }
   });
 

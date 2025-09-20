@@ -1,84 +1,57 @@
-# Electron + Vite + React Application
+# Watch Interface - React Conversion
 
-A desktop application built with Electron, Vite, and React. The application window is configured to be 280x320 pixels with a fixed size.
+This project is a React conversion of the original HTML watch interface. It maintains the exact same design and functionality while using modern React patterns.
 
 ## Features
 
-- Built with Electron for desktop functionality
-- React + Vite for fast development and building
-- Fixed window size (280x320)
-- Disabled menu bar and dev tools for clean UI
-- Hardware acceleration disabled for better compatibility
+- **Main Watch Widget**: Displays time, date, battery status, weather, and calendar
+- **Chat Interface**: Voice and text messaging capabilities
+- **Weather Panel**: Real-time weather information with city search
+- **Calendar Panel**: Event management with date picker
+- **Battery Panel**: Battery status and usage history
 
-## Prerequisites
+## Components
 
-- Node.js (latest LTS version recommended)
-- npm (comes with Node.js)
+- `WatchWidget.jsx` - Main watch interface
+- `ChatInterface.jsx` - Chat functionality with voice recording
+- `WeatherPanel.jsx` - Weather information and search
+- `CalendarPanel.jsx` - Calendar and event management
+- `BatteryPanel.jsx` - Battery status and history
 
-## Installation
+## Technologies Used
 
-1. Clone the repository:
-```bash
-git clone https://github.com/Ramjirv32/MED-AI.git
-cd front
-```
+- React 19.1.1
+- React Router DOM for navigation
+- Tailwind CSS for styling
+- Font Awesome for icons
+- Web APIs for battery, weather, and speech recognition
 
-2. Install dependencies:
-```bash
-npm install
-```
+## Getting Started
 
-## Development
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-To run the application in development mode, you need to:
+2. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-1. Start the Vite development server:
-```bash
-npm run dev
-```
+3. Open your browser and navigate to the local development URL
 
-2. In a separate terminal, start Electron:
-```bash
-npm start
-```
+## Navigation
 
-## Build
+- Main watch interface: `/`
+- Chat interface: `/chat`
 
-To build the application:
+## API Keys
 
-```bash
-npm run build
-```
+The weather functionality requires an OpenWeatherMap API key. Update the `API_KEY` constant in `WeatherPanel.jsx` with your own key.
 
-## Scripts
+## Browser Compatibility
 
-- `npm run dev` - Start Vite development server
-- `npm start` - Launch Electron app
-- `npm run build` - Build for production
-- `npm run lint` - Run ESLint
-- `npm run preview` - Preview production build
-
-## Project Structure
-
-```
-front/
-├── src/               # Source files
-│   ├── App.jsx       # Main React component
-│   ├── main.jsx      # React entry point
-│   └── assets/       # Static assets
-├── main.cjs          # Electron main process
-├── vite.config.js    # Vite configuration
-└── package.json      # Project configuration
-```
-
-## Configuration
-
-- Electron window size: 280x320 pixels (fixed)
-- Development server port: 3000
-- Menu bar: Hidden
-- DevTools: Disabled
-- Hardware acceleration: Disabled for better compatibility
-
-## License
-
-[MIT](LICENSE)
+- Modern browsers with support for:
+  - Web APIs (Battery API, Speech Recognition, MediaRecorder)
+  - CSS Grid and Flexbox
+  - ES6+ JavaScript features
